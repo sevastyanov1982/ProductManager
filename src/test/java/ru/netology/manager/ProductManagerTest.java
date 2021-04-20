@@ -13,7 +13,7 @@ public class ProductManagerTest {
     private ProductRepository repository = new ProductRepository();
     private ProductManager manager = new ProductManager(repository);
     private Product book1 = new Book(1, "История", 1500, "Борис Акунин");
-    private Product book2 = new Book(4, "Тайна", 405, "Митропольский");
+    private Product book2 = new Book(4, "Тайна", 405, "Xiaomi");
     private Product book3 = new Book(3, "Статский советник", 595, "Борис Акунин");
     private Product phone1 = new Smartphone(2, "Iphone", 10000, "Apple");
     private Product phone2 = new Smartphone(5, "Redmi Note", 5980, "Xiaomi");
@@ -71,4 +71,18 @@ public class ProductManagerTest {
         assertArrayEquals(expected, actual);
     }
 
+    @Test
+    public void shouldSearchByWhenMissingProduct() {
+        Product[] actual = manager.searchBy("нет такого продукта");
+        Product[] expected = new Product[]{};
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSearchByPhoneAndBook() {
+        Product[] actual = manager.searchBy("Xiaomi");
+        Product[] expected = new Product[]{book2, phone2};
+
+    }
 }
